@@ -34,9 +34,16 @@ public class ShriekingHat extends CustomJorbsModCard {
     }
 
     @Override
+    public void applyPowers() {
+        super.applyPowers();
+        this.baseMagicNumber = this.magicNumber = ShriekingHatSaveData.damageTaken;
+        this.initializeDescription();
+    }
+
+    @Override
     public void triggerWhenDrawn() {
         if (!sumDamage) {
-            addToTop(new ApplyPowerAction(p, p, new ShriekingHatPower(p)));
+            addToTop(new ApplyPowerAction(p, p, new ShriekingHatPower(p, this)));
             sumDamage = true;
         }
     }
@@ -44,7 +51,7 @@ public class ShriekingHat extends CustomJorbsModCard {
     @Override
     public void onRetained() {
         if (!sumDamage) {
-            addToTop(new ApplyPowerAction(p, p, new ShriekingHatPower(p)));
+            addToTop(new ApplyPowerAction(p, p, new ShriekingHatPower(p, this)));
             sumDamage = true;
         }
     }

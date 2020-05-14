@@ -244,7 +244,7 @@
   "stsjorbsmod:ShriekingHatPower": {
     "NAME": "Shrieking Hat",
     "DESCRIPTIONS": [
-      "When you would die instead deal #b%1d damage to ALL enemies."
+      "When you would die, instead deal #b%1d damage to ALL enemies."
     ]
   },
   "stsjorbsmod:SnappedPower": {
