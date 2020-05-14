@@ -6,13 +6,15 @@ import stsjorbsmod.patches.ManifestPatch;
 import stsjorbsmod.powers.ShriekingHatPower;
 
 public class ShriekingHatSaveData implements CustomSavable<Integer> {
+    public static int damageTaken = 0;
+
     @Override
     public Integer onSave() {
-        return ShriekingHatPower.damageTaken;
+        return damageTaken;
     }
 
     @Override
     public void onLoad(Integer savedData) {
-        ShriekingHatPower.damageTaken = savedData;
+        damageTaken = savedData;
     }
 }

@@ -1,7 +1,6 @@
 package stsjorbsmod.cards.cull;
 
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -9,7 +8,10 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import stsjorbsmod.JorbsMod;
 import stsjorbsmod.cards.CustomJorbsModCard;
 import stsjorbsmod.characters.Cull;
+import stsjorbsmod.characters.ShriekingHatSaveData;
 import stsjorbsmod.powers.ShriekingHatPower;
+
+import static stsjorbsmod.JorbsMod.JorbsCardTags.LEGENDARY;
 
 public class ShriekingHat extends CustomJorbsModCard {
     public static final String ID = JorbsMod.makeID(ShriekingHat.class);
@@ -21,18 +23,20 @@ public class ShriekingHat extends CustomJorbsModCard {
 
     private static final int COST = COST_UNPLAYABLE;
 
+    AbstractPlayer p = AbstractDungeon.player;
     private boolean sumDamage = false;
 
     public ShriekingHat() {
         super(ID, COST, TYPE, COLOR, RARITY, TARGET);
         selfRetain = true;
+        baseMagicNumber = magicNumber = ShriekingHatSaveData.damageTaken;
+        tags.add(LEGENDARY);
     }
 
     @Override
     public void triggerWhenDrawn() {
         if (!sumDamage) {
-            AbstractPlayer p = AbstractDungeon.player;
-            addToTop(new ApplyPowerAction(p, p, new ShriekingHatPower(p), this.magicNumber));
+            addToTop(new ApplyPowerAction(p, p, new ShriekingHatPower(p)));
             sumDamage = true;
         }
     }
@@ -40,15 +44,13 @@ public class ShriekingHat extends CustomJorbsModCard {
     @Override
     public void onRetained() {
         if (!sumDamage) {
-            AbstractPlayer p = AbstractDungeon.player;
-            addToTop(new ApplyPowerAction(p, p, new ShriekingHatPower(p), this.magicNumber));
+            addToTop(new ApplyPowerAction(p, p, new ShriekingHatPower(p)));
             sumDamage = true;
         }
     }
 
     private void stopSummingDamage() {
         if (sumDamage) {
-            AbstractPlayer p = AbstractDungeon.player;
             addToBot(new RemoveSpecificPowerAction(p, p, ShriekingHatPower.POWER_ID));
             sumDamage = false;
         }
@@ -69,6 +71,9 @@ public class ShriekingHat extends CustomJorbsModCard {
         upgradeName();
         upgradeDescription();
     }
+
+    @Override
+    public boolean canUse(AbstractPlayer abstractPlayer, AbstractMonster abstractMonster) { return false; }
 
     @Override
     public void use(AbstractPlayer abstractPlayer, AbstractMonster abstractMonster) {
