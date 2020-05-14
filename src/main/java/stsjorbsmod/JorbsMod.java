@@ -23,10 +23,7 @@ import org.clapper.util.classutil.RegexClassFilter;
 import stsjorbsmod.cards.CardSaveData;
 import stsjorbsmod.cards.CustomJorbsModCard;
 import stsjorbsmod.cards.cull.Withering;
-import stsjorbsmod.characters.Cull;
-import stsjorbsmod.characters.DeckOfTrialsSaveData;
-import stsjorbsmod.characters.ManifestSaveData;
-import stsjorbsmod.characters.Wanderer;
+import stsjorbsmod.characters.*;
 import stsjorbsmod.console.*;
 import stsjorbsmod.memories.AbstractMemory;
 import stsjorbsmod.memories.MemoryManager;
@@ -180,6 +177,7 @@ public class JorbsMod implements
         logger.info("Adding save fields");
         BaseMod.addSaveField(MOD_ID + ":CardSaveData", new CardSaveData());
         BaseMod.addSaveField(MOD_ID + ":ManifestSaveData", new ManifestSaveData());
+        BaseMod.addSaveField(MOD_ID + ":ShriekingHatSaveData", new ShriekingHatSaveData());
         BaseMod.addSaveField(MOD_ID + ":DeckOfTrialsSaveData", new DeckOfTrialsSaveData());
         logger.info("Done adding save fields");
     }
