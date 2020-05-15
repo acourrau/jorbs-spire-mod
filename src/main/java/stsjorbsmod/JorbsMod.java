@@ -177,7 +177,6 @@ public class JorbsMod implements
         logger.info("Adding save fields");
         BaseMod.addSaveField(MOD_ID + ":CardSaveData", new CardSaveData());
         BaseMod.addSaveField(MOD_ID + ":ManifestSaveData", new ManifestSaveData());
-        BaseMod.addSaveField(MOD_ID + ":ShriekingHatSaveData", new ShriekingHatSaveData());
         BaseMod.addSaveField(MOD_ID + ":DeckOfTrialsSaveData", new DeckOfTrialsSaveData());
         logger.info("Done adding save fields");
     }

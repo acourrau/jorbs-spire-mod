@@ -669,7 +669,7 @@
   },
   "stsjorbsmod:ShriekingHat": {
     "NAME": "Shrieking Hat",
-    "DESCRIPTION": "Unplayable. Retain. NL When you die instead deal all damage taken while this was in your hand to all enemies. NL stsjorbsmod:Destroy. NL (Deals !M! damage.)"
+    "DESCRIPTION": "Unplayable. Retain. NL When you die instead deal all damage taken while this was in your hand to ALL enemies. NL stsjorbsmod:Destroy. NL (Deals !M! damage.)"
   },
   "stsjorbsmod:SilverStrike": {
     "NAME": "Silver Strike",

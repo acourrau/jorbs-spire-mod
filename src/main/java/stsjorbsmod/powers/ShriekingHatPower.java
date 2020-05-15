@@ -4,6 +4,7 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.DamageAllEnemiesAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
+import com.megacrit.cardcrawl.actions.defect.IncreaseMiscAction;
 import com.megacrit.cardcrawl.actions.utility.SFXAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
@@ -11,7 +12,6 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.vfx.combat.ShockWaveEffect;
-import stsjorbsmod.characters.ShriekingHatSaveData;
 import stsjorbsmod.util.CardMetaUtils;
 
 public class ShriekingHatPower extends CustomJorbsModPower {
@@ -32,15 +32,15 @@ public class ShriekingHatPower extends CustomJorbsModPower {
 
     @Override
     public int onAttacked(DamageInfo info, int damageAmount) {
-        ShriekingHatSaveData.damageTaken += damageAmount;
-        card.baseMagicNumber = card.magicNumber = ShriekingHatSaveData.damageTaken;
+        addToBot(new IncreaseMiscAction(card.uuid, card.misc, damageAmount));
+        card.baseMagicNumber = card.magicNumber = card.misc;
         card.initializeDescription();
 
         if (damageAmount >= owner.currentHealth) {
             info.output = damageAmount = 0;
             addToBot(new SFXAction("ATTACK_PIERCING_WAIL"));
             addToBot(new VFXAction(owner, new ShockWaveEffect(owner.hb.cX, owner.hb.cY, Settings.GREEN_TEXT_COLOR, ShockWaveEffect.ShockWaveType.CHAOTIC), 1.5F));
-            addToBot(new DamageAllEnemiesAction(null, DamageInfo.createDamageMatrix(ShriekingHatSaveData.damageTaken, true), DamageInfo.DamageType.THORNS, AbstractGameAction.AttackEffect.LIGHTNING));
+            addToBot(new DamageAllEnemiesAction(null, DamageInfo.createDamageMatrix(card.misc, true), DamageInfo.DamageType.THORNS, AbstractGameAction.AttackEffect.LIGHTNING));
             addToBot(new RemoveSpecificPowerAction(owner, owner, POWER_ID));
             CardMetaUtils.destroyCardPermanently(card);
         }
@@ -51,7 +51,7 @@ public class ShriekingHatPower extends CustomJorbsModPower {
 
     @Override
     public void updateDescription() {
-        description = String.format(DESCRIPTIONS[0], ShriekingHatSaveData.damageTaken);
+        description = String.format(DESCRIPTIONS[0], card.misc);
     }
 
     @Override

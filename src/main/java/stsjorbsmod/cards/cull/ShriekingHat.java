@@ -8,7 +8,6 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import stsjorbsmod.JorbsMod;
 import stsjorbsmod.cards.CustomJorbsModCard;
 import stsjorbsmod.characters.Cull;
-import stsjorbsmod.characters.ShriekingHatSaveData;
 import stsjorbsmod.powers.ShriekingHatPower;
 
 import static stsjorbsmod.JorbsMod.JorbsCardTags.LEGENDARY;
@@ -29,14 +28,21 @@ public class ShriekingHat extends CustomJorbsModCard {
     public ShriekingHat() {
         super(ID, COST, TYPE, COLOR, RARITY, TARGET);
         selfRetain = true;
-        baseMagicNumber = magicNumber = ShriekingHatSaveData.damageTaken;
+        baseMagicNumber = magicNumber = misc = 0;
         tags.add(LEGENDARY);
     }
 
     @Override
     public void applyPowers() {
         super.applyPowers();
-        this.baseMagicNumber = this.magicNumber = ShriekingHatSaveData.damageTaken;
+        this.baseMagicNumber = this.magicNumber = this.misc;
+        this.initializeDescription();
+    }
+
+    @Override
+    public void applyLoadedMiscValue(int misc) {
+        this.baseMetaMagicNumber = this.misc;
+        super.applyLoadedMiscValue(misc);
         this.initializeDescription();
     }
 
