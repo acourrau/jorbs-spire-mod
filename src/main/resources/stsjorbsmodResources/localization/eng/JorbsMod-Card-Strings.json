@@ -579,6 +579,10 @@
     "NAME": "Phantasm",
     "DESCRIPTION": "Whenever you gain Intangible, deal !M! damage to ALL enemies."
   },
+  "stsjorbsmod:PiedPiper": {
+    "NAME": "Pied Piper",
+    "DESCRIPTION": "If target is non-boss, non-elite enemy, it flees from the fight and is added to the act boss fight. NL stsjorbsmod:Exert."
+  },
   "stsjorbsmod:Pollute": {
     "NAME": "Pollute",
     "DESCRIPTION": "Turn all cards in your hand into Curses (they can still be played). NL Exhaust.",
