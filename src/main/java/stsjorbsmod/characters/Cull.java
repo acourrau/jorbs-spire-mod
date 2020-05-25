@@ -18,6 +18,7 @@ import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ScreenShake;
 import com.megacrit.cardcrawl.localization.CharacterStrings;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.screens.CharSelectInfo;
 import com.megacrit.cardcrawl.screens.DeathScreen;
 import org.apache.logging.log4j.LogManager;
@@ -29,6 +30,7 @@ import stsjorbsmod.actions.RememberSpecificMemoryAction;
 import stsjorbsmod.audio.VoiceoverMaster;
 import stsjorbsmod.cards.cull.*;
 import stsjorbsmod.memories.WrathMemory;
+import stsjorbsmod.patches.ExtraMonsterPatch;
 import stsjorbsmod.relics.BookOfTrialsRelic;
 
 import java.util.ArrayList;
@@ -391,6 +393,19 @@ public class Cull extends CustomPlayer implements OnAfterPlayerHpLossSubscriber 
     @Override
     public String getPortraitImageName() {
         return CHARACTER_SELECT_BG_TEXTURE;
+    }
+
+    @Override
+    public void onVictory() {
+        super.onVictory();
+        for (AbstractMonster extra : ExtraMonsterPatch.ExtraMonsterField.pipedMonsters.get(AbstractDungeon.player)) {
+            if (extra != null) {
+                extra.escape();
+                extra.escaped = false;
+                extra.isEscaping = false;
+                extra.currentHealth = extra.maxHealth;
+            }
+        }
     }
 
     @Override

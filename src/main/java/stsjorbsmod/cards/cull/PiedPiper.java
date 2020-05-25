@@ -1,9 +1,7 @@
 package stsjorbsmod.cards.cull;
 
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.IntangiblePlayerPower;
 import stsjorbsmod.JorbsMod;
 import stsjorbsmod.cards.CustomJorbsModCard;
 import stsjorbsmod.characters.Cull;
@@ -31,7 +29,8 @@ public class PiedPiper extends CustomJorbsModCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        ExtraMonsterPatch.ExtraMonsterField.pipedMonster.set(p, m);
+        ExtraMonsterPatch.ExtraMonsterField.pipedMonsters.get(p).add(m);
+        m.escape();
     }
 
     @Override
