@@ -404,6 +404,8 @@ public class Cull extends CustomPlayer implements OnAfterPlayerHpLossSubscriber 
                 extra.escaped = false;
                 extra.isEscaping = false;
                 extra.currentHealth = extra.maxHealth;
+                extra.escapeTimer = 0.0F;
+                // Some sort of debuff cleanse?
             }
         }
     }
