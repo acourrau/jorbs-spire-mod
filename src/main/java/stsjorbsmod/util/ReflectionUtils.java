@@ -1,12 +1,18 @@
 package stsjorbsmod.util;
 
 import com.evacipated.cardcrawl.modthespire.Loader;
+import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.monsters.exordium.LouseDefensive;
 import javassist.Modifier;
 import org.clapper.util.classutil.*;
 import stsjorbsmod.JorbsMod;
 
 import java.io.File;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
@@ -99,6 +105,48 @@ public class ReflectionUtils {
             return clz.getMethod(methodName, paramTypes);
         } catch (NoSuchMethodException e) {
             return null;
+        }
+    }
+
+    public static AbstractMonster tryConstructMonster(String className, float offsetX, float offsetY) {
+
+        try {
+            Class<? extends AbstractMonster> clz = (Class<? extends AbstractMonster>) Class.forName(className);
+//            if (!clz.isAssignableFrom(AbstractMonster.class)) {
+            if (!AbstractMonster.class.isAssignableFrom(clz)) {
+                JorbsMod.logger.error("tryConstructMonster invoked on non-AbstractMonster className " + className);
+                return null;
+            }
+
+            try {
+//                Constructor<? extends AbstractMonster> noArgsConstructor = tryGetConstructor(clz);
+                Constructor<? extends AbstractMonster> noArgsConstructor = clz.getConstructor();
+                AbstractMonster m = noArgsConstructor.newInstance();
+                m.drawX = (float) Settings.WIDTH * 0.75F + offsetX * Settings.scale;
+                m.drawY = AbstractDungeon.floorY + offsetY * Settings.scale;
+                return m;
+            } catch (NoSuchMethodException e) { }
+
+            try {
+//                Constructor<? extends AbstractMonster> offsetXoffsetYConstructor = tryGetConstructor(clz, float.class, float.class);
+                Constructor<? extends AbstractMonster> offsetXoffsetYConstructor = clz.getConstructor(new Class[]{float.class, float.class});
+                return offsetXoffsetYConstructor.newInstance(offsetX, offsetY);
+            } catch (NoSuchMethodException e) { }
+
+            // Base game monsters with specific unique constructors get handled here, like so:
+            //
+            // if (className.equals(SpecialMonster.class.getName())) {
+            //     Constructor<? extends AbstractMonster> specialMonsterConstructor = tryGetConstructor(clz, FirstParamType.class, SecondParamType.class);
+            //     return specialMonsterConstructor.newInstance(firstParamValue, secondParamValue);
+            // }
+
+            JorbsMod.logger.warn("Could not construct monster from className " + className +"; don't know how to construct");
+            return null;
+        } catch (ClassNotFoundException e) {
+            JorbsMod.logger.warn("Could not construct monster from unknown className " + className +"; was a mod uninstalled?");
+            return null;
+        } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
+            throw new RuntimeException(e);
         }
     }
 }
