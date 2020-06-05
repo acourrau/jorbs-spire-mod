@@ -398,16 +398,16 @@ public class Cull extends CustomPlayer implements OnAfterPlayerHpLossSubscriber 
     @Override
     public void onVictory() {
         super.onVictory();
-        for (AbstractMonster extra : ExtraMonsterPatch.ExtraMonsterField.pipedMonsters.get(AbstractDungeon.player)) {
-            if (extra != null) {
-                extra.escape();
-                extra.escaped = false;
-                extra.isEscaping = false;
-                extra.currentHealth = extra.maxHealth;
-                extra.escapeTimer = 0.0F;
-                // Some sort of debuff cleanse?
-            }
-        }
+//        for (AbstractMonster extra : ExtraMonsterPatch.ExtraMonsterField.pipedMonsters.get(AbstractDungeon.player)) {
+//            if (extra != null) {
+//                extra.escape();
+//                extra.escaped = false;
+//                extra.isEscaping = false;
+//                extra.currentHealth = extra.maxHealth;
+//                extra.escapeTimer = 0.0F;
+//                // Some sort of debuff cleanse?
+//            }
+//        }
     }
 
     @Override

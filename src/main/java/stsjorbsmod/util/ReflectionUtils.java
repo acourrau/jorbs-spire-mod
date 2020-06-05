@@ -109,17 +109,14 @@ public class ReflectionUtils {
     }
 
     public static AbstractMonster tryConstructMonster(String className, float offsetX, float offsetY) {
-
         try {
             Class<? extends AbstractMonster> clz = (Class<? extends AbstractMonster>) Class.forName(className);
-//            if (!clz.isAssignableFrom(AbstractMonster.class)) {
             if (!AbstractMonster.class.isAssignableFrom(clz)) {
                 JorbsMod.logger.error("tryConstructMonster invoked on non-AbstractMonster className " + className);
                 return null;
             }
 
             try {
-//                Constructor<? extends AbstractMonster> noArgsConstructor = tryGetConstructor(clz);
                 Constructor<? extends AbstractMonster> noArgsConstructor = clz.getConstructor();
                 AbstractMonster m = noArgsConstructor.newInstance();
                 m.drawX = (float) Settings.WIDTH * 0.75F + offsetX * Settings.scale;
@@ -128,7 +125,6 @@ public class ReflectionUtils {
             } catch (NoSuchMethodException e) { }
 
             try {
-//                Constructor<? extends AbstractMonster> offsetXoffsetYConstructor = tryGetConstructor(clz, float.class, float.class);
                 Constructor<? extends AbstractMonster> offsetXoffsetYConstructor = clz.getConstructor(new Class[]{float.class, float.class});
                 return offsetXoffsetYConstructor.newInstance(offsetX, offsetY);
             } catch (NoSuchMethodException e) { }
