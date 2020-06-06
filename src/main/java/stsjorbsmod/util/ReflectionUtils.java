@@ -108,16 +108,12 @@ public class ReflectionUtils {
         }
     }
 
-    public static AbstractMonster tryConstructMonster(String monsterInfo, float offsetX, float offsetY) {
+    public static AbstractMonster tryConstructMonster(String className, float offsetX, float offsetY) {
         try {
-            String[] monsterParts = monsterInfo.split("\\|");
-            String className = monsterParts[0];
-            String maxHp = monsterParts[1];
-
             Class<? extends AbstractMonster> clz = (Class<? extends AbstractMonster>) Class.forName(className);
 
             if (!AbstractMonster.class.isAssignableFrom(clz)) {
-                JorbsMod.logger.error("tryConstructMonster invoked on non-AbstractMonster className " + monsterInfo);
+                JorbsMod.logger.error("tryConstructMonster invoked on non-AbstractMonster className " + className);
                 return null;
             }
 
@@ -128,17 +124,12 @@ public class ReflectionUtils {
                 m.drawX = (float) Settings.WIDTH * 0.75F + offsetX * Settings.scale;
                 m.drawY = AbstractDungeon.floorY + offsetY * Settings.scale;
 
-                m.maxHealth = Integer.parseInt(maxHp);
-                m.currentHealth = Integer.parseInt(maxHp);
                 return m;
             } catch (NoSuchMethodException e) { }
 
             try {
                 Constructor<? extends AbstractMonster> offsetXoffsetYConstructor = clz.getConstructor(new Class[]{float.class, float.class});
                 AbstractMonster m = offsetXoffsetYConstructor.newInstance(offsetX, offsetY);
-
-                m.maxHealth = Integer.parseInt(maxHp);
-                m.currentHealth = Integer.parseInt(maxHp);
 
                 return m;
             } catch (NoSuchMethodException e) { }
