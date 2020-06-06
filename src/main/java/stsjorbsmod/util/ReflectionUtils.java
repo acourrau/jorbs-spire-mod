@@ -108,25 +108,39 @@ public class ReflectionUtils {
         }
     }
 
-    public static AbstractMonster tryConstructMonster(String className, float offsetX, float offsetY) {
+    public static AbstractMonster tryConstructMonster(String monsterInfo, float offsetX, float offsetY) {
         try {
+            String[] monsterParts = monsterInfo.split("\\|");
+            String className = monsterParts[0];
+            String maxHp = monsterParts[1];
+
             Class<? extends AbstractMonster> clz = (Class<? extends AbstractMonster>) Class.forName(className);
+
             if (!AbstractMonster.class.isAssignableFrom(clz)) {
-                JorbsMod.logger.error("tryConstructMonster invoked on non-AbstractMonster className " + className);
+                JorbsMod.logger.error("tryConstructMonster invoked on non-AbstractMonster className " + monsterInfo);
                 return null;
             }
 
             try {
                 Constructor<? extends AbstractMonster> noArgsConstructor = clz.getConstructor();
                 AbstractMonster m = noArgsConstructor.newInstance();
+
                 m.drawX = (float) Settings.WIDTH * 0.75F + offsetX * Settings.scale;
                 m.drawY = AbstractDungeon.floorY + offsetY * Settings.scale;
+
+                m.maxHealth = Integer.parseInt(maxHp);
+                m.currentHealth = Integer.parseInt(maxHp);
                 return m;
             } catch (NoSuchMethodException e) { }
 
             try {
                 Constructor<? extends AbstractMonster> offsetXoffsetYConstructor = clz.getConstructor(new Class[]{float.class, float.class});
-                return offsetXoffsetYConstructor.newInstance(offsetX, offsetY);
+                AbstractMonster m = offsetXoffsetYConstructor.newInstance(offsetX, offsetY);
+
+                m.maxHealth = Integer.parseInt(maxHp);
+                m.currentHealth = Integer.parseInt(maxHp);
+
+                return m;
             } catch (NoSuchMethodException e) { }
 
 
@@ -147,10 +161,10 @@ public class ReflectionUtils {
             //     return specialMonsterConstructor.newInstance(firstParamValue, secondParamValue);
             // }
 
-            JorbsMod.logger.warn("Could not construct monster from className " + className +"; don't know how to construct");
+            JorbsMod.logger.warn("Could not construct monster from className " + monsterInfo +"; don't know how to construct");
             return null;
         } catch (ClassNotFoundException e) {
-            JorbsMod.logger.warn("Could not construct monster from unknown className " + className +"; was a mod uninstalled?");
+            JorbsMod.logger.warn("Could not construct monster from unknown className " + monsterInfo +"; was a mod uninstalled?");
             return null;
         } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
             throw new RuntimeException(e);

@@ -6,8 +6,10 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.monsters.exordium.Hexaghost;
 import com.megacrit.cardcrawl.monsters.exordium.LouseDefensive;
 import com.megacrit.cardcrawl.monsters.exordium.SlimeBoss;
+import com.megacrit.cardcrawl.monsters.exordium.TheGuardian;
 import stsjorbsmod.util.MonsterUtils;
 import stsjorbsmod.util.ReflectionUtils;
 
@@ -34,7 +36,7 @@ public class ExtraMonsterPatch {
     }
 
     @SpirePatch(clz = SlimeBoss.class, method = "usePreBattleAction")
-    public static class AddExtraMonsterPatch
+    public static class SlimeBossAddExtraMonsterPatch
     {
         @SpirePostfixPatch
         public static void patch(SlimeBoss __instance) {
@@ -42,12 +44,8 @@ public class ExtraMonsterPatch {
             if (!extras.isEmpty()) {
                 int spacing = 0;
                 for (String extra : extras) {
-                    String[] monsterParts = extra.split("\\|");
-
                     // I hate this high up placement, but slime boss is a problem with how he splits.
-                    AbstractMonster pipedMonster = ReflectionUtils.tryConstructMonster(monsterParts[0], 200 - spacing, 325);
-                    pipedMonster.maxHealth = Integer.parseInt(monsterParts[1]);
-                    pipedMonster.currentHealth = Integer.parseInt(monsterParts[1]);
+                    AbstractMonster pipedMonster = ReflectionUtils.tryConstructMonster(extra, 200 - spacing, 325);
 
                     AbstractDungeon.actionManager.addToBottom(new SpawnMonsterAction(pipedMonster, true));
 
@@ -56,4 +54,43 @@ public class ExtraMonsterPatch {
             }
         }
     }
+
+    @SpirePatch(clz = Hexaghost.class, method = "usePreBattleAction")
+    public static class HexaghostAddExtraMonsterPatch
+    {
+        @SpirePostfixPatch
+        public static void patch(Hexaghost __instance) {
+            List<String> extras = Arrays.asList(ExtraMonsterField.pipedMonsters.get(AbstractDungeon.player).split(","));
+            if (!extras.isEmpty()) {
+                int spacing = 0;
+                for (String extra : extras) {
+                    AbstractMonster pipedMonster = ReflectionUtils.tryConstructMonster(extra, -300 - spacing, 50);
+
+                    AbstractDungeon.actionManager.addToBottom(new SpawnMonsterAction(pipedMonster, true));
+
+                    spacing += pipedMonster.hb_w;
+                }
+            }
+        }
+    }
+
+    @SpirePatch(clz = TheGuardian.class, method = "usePreBattleAction")
+    public static class TheGuardianAddExtraMonsterPatch
+    {
+        @SpirePostfixPatch
+        public static void patch(TheGuardian __instance) {
+            List<String> extras = Arrays.asList(ExtraMonsterField.pipedMonsters.get(AbstractDungeon.player).split(","));
+            if (!extras.isEmpty()) {
+                int spacing = 0;
+                for (String extra : extras) {
+                    AbstractMonster pipedMonster = ReflectionUtils.tryConstructMonster(extra, -300 - spacing, 50);
+
+                    AbstractDungeon.actionManager.addToBottom(new SpawnMonsterAction(pipedMonster, true));
+
+                    spacing += pipedMonster.hb_w;
+                }
+            }
+        }
+    }
+
 }
