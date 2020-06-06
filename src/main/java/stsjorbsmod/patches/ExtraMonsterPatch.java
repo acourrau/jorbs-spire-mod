@@ -1,8 +1,12 @@
 package stsjorbsmod.patches;
 
 import com.evacipated.cardcrawl.modthespire.lib.*;
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.actions.animations.ShoutAction;
+import com.megacrit.cardcrawl.actions.common.EscapeAction;
 import com.megacrit.cardcrawl.actions.common.SpawnMonsterAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
@@ -49,9 +53,18 @@ public class ExtraMonsterPatch {
 
                     AbstractDungeon.actionManager.addToBottom(new SpawnMonsterAction(pipedMonster, true));
 
-                    spacing += pipedMonster.hb_w + 50;
+                    spacing += pipedMonster.hb_w;
                 }
             }
+        }
+    }
+
+    @SpirePatch(clz = SlimeBoss.class, method = "die")
+    public static class SlimeBossScareExtraMonstersPatch
+    {
+        @SpirePostfixPatch
+        public static void patch(SlimeBoss __instance) {
+            scarePipedMinions();
         }
     }
 
@@ -74,6 +87,15 @@ public class ExtraMonsterPatch {
         }
     }
 
+    @SpirePatch(clz = Hexaghost.class, method = "die")
+    public static class HexaghostScareExtraMonstersPatch
+    {
+        @SpirePostfixPatch
+        public static void patch(Hexaghost __instance) {
+            scarePipedMinions();
+        }
+    }
+
     @SpirePatch(clz = TheGuardian.class, method = "usePreBattleAction")
     public static class TheGuardianAddExtraMonsterPatch
     {
@@ -93,4 +115,26 @@ public class ExtraMonsterPatch {
         }
     }
 
+    @SpirePatch(clz = TheGuardian.class, method = "die")
+    public static class TheGuardianScareExtraMonstersPatch
+    {
+        @SpirePostfixPatch
+        public static void patch(TheGuardian __instance) {
+            scarePipedMinions();
+        }
+    }
+
+    // Copied from Gremlin Leader
+    private static void scarePipedMinions() {
+//        for (AbstractMonster m : (AbstractDungeon.getCurrRoom()).monsters.monsters) {
+//            if (!m.isDying) {
+//                AbstractDungeon.actionManager.addToBottom(new ShoutAction((AbstractCreature)m, "RUN!!!", 0.5F, 1.2F));
+//            }
+//        }
+        for (AbstractMonster m : (AbstractDungeon.getCurrRoom()).monsters.monsters) {
+            if (!m.isDying) {
+                AbstractDungeon.actionManager.addToBottom(new EscapeAction(m));
+            }
+        }
+    }
 }
