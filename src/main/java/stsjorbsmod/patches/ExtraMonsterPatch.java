@@ -40,14 +40,18 @@ public class ExtraMonsterPatch {
         public static void patch(SlimeBoss __instance) {
             List<String> extras = Arrays.asList(ExtraMonsterField.pipedMonsters.get(AbstractDungeon.player).split(","));
             if (!extras.isEmpty()) {
+                int spacing = 0;
                 for (String extra : extras) {
                     String[] monsterParts = extra.split("\\|");
 
-                    // need special math here to place monsters correctly
-                    AbstractMonster pipedMonster = ReflectionUtils.tryConstructMonster(monsterParts[0], 200, 0);
+                    // I hate this high up placement, but slime boss is a problem with how he splits.
+                    AbstractMonster pipedMonster = ReflectionUtils.tryConstructMonster(monsterParts[0], 200 - spacing, 325);
                     pipedMonster.maxHealth = Integer.parseInt(monsterParts[1]);
+                    pipedMonster.currentHealth = Integer.parseInt(monsterParts[1]);
 
                     AbstractDungeon.actionManager.addToBottom(new SpawnMonsterAction(pipedMonster, true));
+
+                    spacing += pipedMonster.hb_w + 50;
                 }
             }
         }
