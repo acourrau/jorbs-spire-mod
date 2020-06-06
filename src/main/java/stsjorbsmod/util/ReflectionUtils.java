@@ -129,6 +129,17 @@ public class ReflectionUtils {
                 return offsetXoffsetYConstructor.newInstance(offsetX, offsetY);
             } catch (NoSuchMethodException e) { }
 
+
+            // Monsters found with special constructors:
+            // AcidSlime_S -- maybe others? do we need to worry about poison amounts?
+            // SpikeSlime_S -- maybe others? do we need to worry about poison amounts?
+            // JawWorm (hard mode from act 3 or regular one)
+            //
+            // Monsters with no float x/y constructor
+            // WrithingMass
+            // Transient
+            // SpireGrowth
+            //
             // Base game monsters with specific unique constructors get handled here, like so:
             //
             // if (className.equals(SpecialMonster.class.getName())) {
