@@ -152,10 +152,10 @@ public class ReflectionUtils {
             //     return specialMonsterConstructor.newInstance(firstParamValue, secondParamValue);
             // }
 
-            JorbsMod.logger.warn("Could not construct monster from className " + monsterInfo +"; don't know how to construct");
+            JorbsMod.logger.warn("Could not construct monster from className " + className +"; don't know how to construct");
             return null;
         } catch (ClassNotFoundException e) {
-            JorbsMod.logger.warn("Could not construct monster from unknown className " + monsterInfo +"; was a mod uninstalled?");
+            JorbsMod.logger.warn("Could not construct monster from unknown className " + className +"; was a mod uninstalled?");
             return null;
         } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
             throw new RuntimeException(e);

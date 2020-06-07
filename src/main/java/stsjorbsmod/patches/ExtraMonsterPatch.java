@@ -93,7 +93,7 @@ public class ExtraMonsterPatch {
         }
     }
 
-    private static void spawnMonsters(float offsetX, float offsetY) {
+    private static void spawnMonsters(float startingOffsetX, float startingOffsetY) {
         List<String> extras = Arrays.asList(ExtraMonsterField.pipedMonsters.get(AbstractDungeon.player).split(","));
         if (!extras.isEmpty()) {
             int spacing = 0;
@@ -102,7 +102,7 @@ public class ExtraMonsterPatch {
                 String className = monsterParts[0];
                 int maxHp = Integer.parseInt(monsterParts[1]);
 
-                AbstractMonster pipedMonster = ReflectionUtils.tryConstructMonster(className, offsetX - spacing, offsetY);
+                AbstractMonster pipedMonster = ReflectionUtils.tryConstructMonster(className, startingOffsetX - spacing, startingOffsetY);
                 pipedMonster.maxHealth = maxHp;
                 pipedMonster.currentHealth = maxHp;
 
