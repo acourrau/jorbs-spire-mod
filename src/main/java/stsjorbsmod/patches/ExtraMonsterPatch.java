@@ -1,27 +1,21 @@
 package stsjorbsmod.patches;
 
-import com.evacipated.cardcrawl.modthespire.lib.*;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.animations.ShoutAction;
+import com.evacipated.cardcrawl.modthespire.lib.SpireField;
+import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
+import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
 import com.megacrit.cardcrawl.actions.common.EscapeAction;
 import com.megacrit.cardcrawl.actions.common.SpawnMonsterAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.core.AbstractCreature;
-import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.exordium.Hexaghost;
-import com.megacrit.cardcrawl.monsters.exordium.LouseDefensive;
 import com.megacrit.cardcrawl.monsters.exordium.SlimeBoss;
 import com.megacrit.cardcrawl.monsters.exordium.TheGuardian;
 import stsjorbsmod.util.MonsterUtils;
 import stsjorbsmod.util.ReflectionUtils;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static stsjorbsmod.util.ReflectionUtils.tryConstructMonster;
 
 public class ExtraMonsterPatch {
     @SpirePatch(clz = AbstractPlayer.class, method = SpirePatch.CLASS)
@@ -43,52 +37,29 @@ public class ExtraMonsterPatch {
     public static class SlimeBossAddExtraMonsterPatch
     {
         @SpirePostfixPatch
-        public static void patch(SlimeBoss __instance) {
+        public static void patch() {
+            // Yucky monster placement. Don't like
             spawnMonsters(200, 325);
         }
     }
 
-    @SpirePatch(clz = SlimeBoss.class, method = "die")
-    public static class SlimeBossScareExtraMonstersPatch
-    {
-        @SpirePostfixPatch
-        public static void patch(SlimeBoss __instance) {
-            scarePipedMinions();
-        }
-    }
-
     @SpirePatch(clz = Hexaghost.class, method = "usePreBattleAction")
+    @SpirePatch(clz = TheGuardian.class, method = "usePreBattleAction")
     public static class HexaghostAddExtraMonsterPatch
     {
         @SpirePostfixPatch
-        public static void patch(Hexaghost __instance) {
+        public static void patch() {
             spawnMonsters(-300, 50);
         }
     }
 
+    @SpirePatch(clz = SlimeBoss.class, method = "die")
     @SpirePatch(clz = Hexaghost.class, method = "die")
-    public static class HexaghostScareExtraMonstersPatch
-    {
-        @SpirePostfixPatch
-        public static void patch(Hexaghost __instance) {
-            scarePipedMinions();
-        }
-    }
-
-    @SpirePatch(clz = TheGuardian.class, method = "usePreBattleAction")
-    public static class TheGuardianAddExtraMonsterPatch
-    {
-        @SpirePostfixPatch
-        public static void patch(TheGuardian __instance) {
-            spawnMonsters(-300, 50);
-        }
-    }
-
     @SpirePatch(clz = TheGuardian.class, method = "die")
-    public static class TheGuardianScareExtraMonstersPatch
+    public static class ScareExtraMonstersPatch
     {
         @SpirePostfixPatch
-        public static void patch(TheGuardian __instance) {
+        public static void patch() {
             scarePipedMinions();
         }
     }
