@@ -45,7 +45,7 @@ public class ExtraMonsterPatch {
 
     @SpirePatch(clz = Hexaghost.class, method = "usePreBattleAction")
     @SpirePatch(clz = TheGuardian.class, method = "usePreBattleAction")
-    public static class HexaghostAddExtraMonsterPatch
+    public static class AddExtraMonsterPatch
     {
         @SpirePostfixPatch
         public static void patch() {
