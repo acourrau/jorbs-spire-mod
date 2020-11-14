@@ -6,11 +6,19 @@ import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
 import com.megacrit.cardcrawl.actions.common.EscapeAction;
 import com.megacrit.cardcrawl.actions.common.SpawnMonsterAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.monsters.city.Champ;
+import com.megacrit.cardcrawl.monsters.city.TheCollector;
 import com.megacrit.cardcrawl.monsters.exordium.Hexaghost;
 import com.megacrit.cardcrawl.monsters.exordium.SlimeBoss;
 import com.megacrit.cardcrawl.monsters.exordium.TheGuardian;
+import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.relics.AbstractRelic;
+import javassist.CannotCompileException;
+import javassist.expr.ExprEditor;
+import javassist.expr.MethodCall;
 import stsjorbsmod.util.MonsterUtils;
 import stsjorbsmod.util.ReflectionUtils;
 
@@ -53,9 +61,40 @@ public class ExtraMonsterPatch {
         }
     }
 
+    @SpirePatch(clz = TheCollector.class, method = "usePreBattleAction")
+    public static class CollectorAddExtraMonsterPatch
+    {
+        @SpirePostfixPatch
+        public static void patch() {
+            // Yucky monster placement. Don't like
+            spawnMonsters(-300, 300);
+        }
+    }
+
+    @SpirePatch(clz = Champ.class, method = "usePreBattleAction")
+    public static class ChampAddExtraMonsterPatch
+    {
+        @SpirePostfixPatch
+        public static void patch() {
+            spawnMonsters(-300, 50);
+        }
+    }
+
+    @SpirePatch(clz = Champ.class, method = SpirePatch.CONSTRUCTOR)
+    public static class ChampRepositionPatch
+    {
+        @SpirePostfixPatch
+        public static void patch(Champ __instance) {
+            __instance.drawX = Settings.WIDTH * 0.75f + (200) * Settings.scale;
+            __instance.refreshIntentHbLocation();
+        }
+    }
+
     @SpirePatch(clz = SlimeBoss.class, method = "die")
     @SpirePatch(clz = Hexaghost.class, method = "die")
     @SpirePatch(clz = TheGuardian.class, method = "die")
+    @SpirePatch(clz = TheCollector.class, method = "die")
+    @SpirePatch(clz = Champ.class, method = "die")
     public static class ScareExtraMonstersPatch
     {
         @SpirePostfixPatch
