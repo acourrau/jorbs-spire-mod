@@ -53,7 +53,7 @@
   },
   "stsjorbsmod:Assertion": {
     "NAME": "Assertion",
-    "DESCRIPTION": "Deal damage equal to !stsjorbsmod:UrMagic! times the number of skills played this act, up to !stsjorbsmod:MetaMagic! damage.",
+    "DESCRIPTION": "stsjorbsmod:Exert. NL Deal damage equal to !stsjorbsmod:UrMagic! times the number of skills played this act, up to !stsjorbsmod:MetaMagic! damage.",
     "EXTENDED_DESCRIPTION": [
       " NL (Deals !D! damage, !M! skill played.)",
       " NL (Deals !D! damage, !M! skills played.)"
@@ -73,7 +73,8 @@
   },
   "stsjorbsmod:Blasphemer": {
     "NAME": "Blasphemer",
-    "DESCRIPTION": "Unplayable. NL When you draw this card, add !M! *Smites to your hand and Exhaust."
+    "DESCRIPTION": "Unplayable. NL When you draw this card, add !M! *Smites to your hand and Exhaust.",
+    "UPGRADE_DESCRIPTION": "Unplayable. NL When you draw this card, add !M! Upgraded *Smites to your hand and Exhaust."
   },
   "stsjorbsmod:BookOfTongues": {
     "NAME": "Book of Tongues",
@@ -132,6 +133,11 @@
     "NAME": "Chill Touch",
     "DESCRIPTION": "Deal !D! damage to an enemy. NL It can no longer heal."
   },
+  "stsjorbsmod:Clarify": {
+    "NAME": "Clarify",
+    "DESCRIPTION": "Retain: While this is in your hand, Retain !M! extra card. NL stsjorbsmod:Exert: Your draw pile is shown in order.",
+    "UPGRADE_DESCRIPTION": "Retain: While this is in your hand, Retain !M! extra cards. NL stsjorbsmod:Exert: Your draw pile is shown in order."
+  },
   "stsjorbsmod:Cleanse": {
     "NAME": "Cleanse",
     "DESCRIPTION": "Discard all Curses from your draw pile. NL Heal !stsjorbsmod:UrMagic! HP for each Curse discarded. NL Exhaust.",
@@ -165,6 +171,11 @@
     "NAME": "Counterspell",
     "DESCRIPTION": "Gain !B! Block. NL Gain !M! Artifact if enemy intends to apply a negative effect. NL Exhaust."
   },
+  "stsjorbsmod:CoupDeGrace": {
+    "NAME": "Coup de Grâce",
+    "DESCRIPTION": "stsjorbsmod:Indiscriminate. NL Gain X Intangible. NL After X turns deal stsjorbsmod:True\u00a0Damage equal to double the damage prevented.",
+    "UPGRADE_DESCRIPTION": "stsjorbsmod:Indiscriminate. NL Gain X+1 Intangible. NL After X+1 turns deal stsjorbsmod:True\u00a0Damage equal to double the damage prevented."
+  },
   "stsjorbsmod:CULLCard": {
     "NAME": "CULL",
     "DESCRIPTION": "Deal !D! damage twice. NL Exhaust.",
@@ -176,8 +187,8 @@
   },
   "stsjorbsmod:Damnation": {
     "NAME": "Damnation",
-    "DESCRIPTION": "Draw !M! cards. NL Permanently Transform the next card played this combat.",
-    "UPGRADE_DESCRIPTION": "Draw !M! cards. NL Permanently Transform the next card played this combat, then upgrade it."
+    "DESCRIPTION": "Draw !M! cards. NL Permanently Transform the next non-Legendary card played this combat. NL Exhaust.",
+    "UPGRADE_DESCRIPTION": "Draw !M! cards. NL Permanently Transform the next non-Legendary card played this combat, then upgrade it. NL Exhaust."
   },
   "stsjorbsmod:DeathThroes": {
     "NAME": "Death Throes",
@@ -319,6 +330,14 @@
     "NAME": "Flame Ward",
     "DESCRIPTION": "The next time you are attacked, apply !M! stsjorbsmod:Burning to ALL enemies and gain !B! Block. Exhaust."
   },
+  "stsjorbsmod:FocusedRage": {
+    "NAME": "Focused Rage",
+    "DESCRIPTION": "Gain !stsjorbsmod:UrMagic! Strength for each card stsjorbsmod:Exerted this combat. NL stsjorbsmod:Exert.",
+    "EXTENDED_DESCRIPTION": [
+      " NL (Applies !M! Strength.)",
+      "Nothing exerted this combat!"
+    ]
+  },
   "stsjorbsmod:ForbiddenGrimoire": {
     "NAME": "The Grimoire",
     "DESCRIPTION": "stsjorbsmod:Ephemeral. NL stsjorbsmod:Entombed until you stsjorbsmod:Snap OR start turn 7. NL Choose 1 of 3 stsjorbsmod:Material\u00a0Components. NL stsjorbsmod:Exhume after playing this then !M! other cards."
@@ -373,7 +392,7 @@
   },
   "stsjorbsmod:Godsbane": {
     "NAME": "Godsbane",
-    "DESCRIPTION": "Deal !M! % of target's max HP.",
+    "DESCRIPTION": "Deal !M! % of target's Max HP.",
     "EXTENDED_DESCRIPTION": [
       " NL (Deals !D! damage.)"
     ]
@@ -537,6 +556,11 @@
     "NAME": "Oak Leaf",
     "DESCRIPTION": "Gain !M! Dexterity."
   },
+  "stsjorbsmod:OldBook": {
+    "NAME": "Old Book",
+    "DESCRIPTION": "stsjorbsmod:Entombed. NL stsjorbsmod:Exhume when you would die; instead stsjorbsmod:Destroy this card. NL Unplayable",
+    "UPGRADE_DESCRIPTION": "stsjorbsmod:Entombed. NL stsjorbsmod:Exhume when you would die; instead stsjorbsmod:Destroy this card and heal !M! percent of your Max HP. NL Unplayable."
+  },
   "stsjorbsmod:OldPocket": {
     "NAME": "Old Pocket",
     "DESCRIPTION": "Gain !M! gold. NL Remember stsjorbsmod:Charity. NL Exhaust.",
@@ -596,6 +620,10 @@
       " NL (You have !M! Curses.)"
     ]
   },
+  "stsjorbsmod:Possession": {
+    "NAME": "Possession",
+    "DESCRIPTION": "Apply !M! stsjorbsmod:Possessed. NL stsjorbsmod:Exert."
+  },
   "stsjorbsmod:Poultergeist": {
     "NAME": "Poultergeist",
     "DESCRIPTION": "Deal !D! damage."
@@ -617,7 +645,7 @@
   },
   "stsjorbsmod:ProdigalMemory": {
     "NAME": "Prodigal Memory",
-    "DESCRIPTION": "Draw !stsjorbsmod:UrMagic! cards and lose !M! max HP. NL If this card is in your hand at the end of your turn, stsjorbsmod:Exert."
+    "DESCRIPTION": "Draw !stsjorbsmod:UrMagic! cards and lose !M! Max HP. NL If this card is in your hand at the end of your turn, stsjorbsmod:Exert."
   },
   "stsjorbsmod:PurgeMind": {
     "NAME": "Purge Mind",
@@ -642,6 +670,10 @@
     "DESCRIPTION": "Deal !D! damage. NL Apply !M! Weak.",
     "UPGRADE_DESCRIPTION": "Deal !D! damage. NL Apply !M! Weak !stsjorbsmod:MetaMagic! times."
   },
+  "stsjorbsmod:ReapAndSow": {
+    "NAME": "Reap and Sow",
+    "DESCRIPTION": "Deal !D! damage. If Fatal, deal the leftover damage to ALL enemies at the start of the next combat."
+  },
   "stsjorbsmod:Rebuke": {
     "NAME": "Rebuke",
     "DESCRIPTION": "Gain !stsjorbsmod:UrMagic! Intangible. NL Deal damage to ALL enemies equal to !D! times your Intangible. NL Exhaust.",
@@ -662,6 +694,11 @@
     "NAME": "Refuse to Forget",
     "DESCRIPTION": "You cannot forget your current memory until you have stsjorbsmod:Clarity of it. NL Draw !M! cards. NL You cannot draw more cards this turn."
   },
+  "stsjorbsmod:RepressedMemory": {
+    "NAME": "Repressed Memory",
+    "DESCRIPTION": "Gain !stsjorbsmod:UrMagic! [E]. NL Draw !M! cards. NL stsjorbsmod:Exert at end of combat. NL Lose !stsjorbsmod:MetaMagic! Max HP when this card is discarded from your hand or at end of turn.",
+    "UPGRADE_DESCRIPTION": "Gain !stsjorbsmod:UrMagic! [E]. NL Draw !M! cards. NL stsjorbsmod:Exert at end of combat."
+  },
   "stsjorbsmod:Rest": {
     "NAME": "Rest",
     "DESCRIPTION": "Remember stsjorbsmod:Chastity. NL Gain !B! Block. NL End your turn."
@@ -675,6 +712,11 @@
     "NAME": "Rot",
     "DESCRIPTION": "stsjorbsmod:Ephemeral. NL Lose a random stsjorbsmod:Clarity. NL When this is initially added to your hand, add !M! additional copy.",
     "UPGRADE_DESCRIPTION": "stsjorbsmod:Ephemeral. NL Lose a random stsjorbsmod:Clarity. NL When this is initially added to your hand, add !M! additional copies."
+  },
+  "stsjorbsmod:Sacrifice": {
+    "NAME": "Sacrifice",
+    "DESCRIPTION": "Gain [E] when drawn. NL Ethereal. NL This turn, pay Max HP instead of [E]. NL stsjorbsmod:Exert.",
+    "UPGRADE_DESCRIPTION": "Gain [E] [E] when drawn. NL Ethereal. NL This turn, pay Max HP instead of [E]. NL stsjorbsmod:Exert."
   },
   "stsjorbsmod:SchoolsOfMagic": {
     "NAME": "Schools of Magic",
@@ -703,7 +745,7 @@
   },
   "stsjorbsmod:Siphon": {
     "NAME": "Siphon",
-    "DESCRIPTION": "Deal !D! damage. NL If this kills an enemy, heal !M! HP."
+    "DESCRIPTION": "Deal !D! damage. NL If this kills an enemy, heal !M! HP and gain !stsjorbsmod:MetaMagic! Max HP."
   },
   "stsjorbsmod:SiphonEnergy": {
     "NAME": "Siphon Energy",
@@ -723,7 +765,8 @@
   },
   "stsjorbsmod:SpiritShield_Cull": {
     "NAME": "Spirit Shield",
-    "DESCRIPTION": "Reduce all damage taken by !M! until next turn."
+    "DESCRIPTION": "Reduce all damage taken by !M! until next turn. NL Exhaust.",
+    "UPGRADE_DESCRIPTION": "Reduce all damage taken by !M! until next turn."
   },
   "stsjorbsmod:Stalwart": {
     "NAME": "Stalwart",
@@ -830,7 +873,7 @@
   },
   "stsjorbsmod:TrueStrike": {
     "NAME": "True Strike",
-    "DESCRIPTION": "Deal !D! damage. NL This damage cannot be prevented or reduced."
+    "DESCRIPTION": "Deal !D! stsjorbsmod:True\u00a0Damage."
   },
   "stsjorbsmod:UnseenServant": {
     "NAME": "Unseen Servant",

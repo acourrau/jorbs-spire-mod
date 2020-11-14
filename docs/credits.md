@@ -27,7 +27,9 @@
 ### Developers
 
 * avolny ([GitHub](https://github.com/avolny))
+* Coogrr ([GitHub](https://github.com/Coogrr))
 * evan_tor ([GitHub](https://github.com/evantor))
+* ForgottenArbiter ([GitHub](https://github.com/ForgottenArbiter))
 * LankSSBM ([GitHub](https://github.com/acourrau))
 * Lucerna ([GitHub](https://github.com/Jacob-Laverty))
 * mderb4 ([GitHub](https://github.com/mderb4))
@@ -35,6 +37,7 @@
 * mevestatney ([GitHub](https://github.com/stevematney))
 * mikeynap ([GitHub](https://github.com/mikeynap))
 * modargo ([GitHub](https://github.com/modargo))
+* Nafen ([GitHub](https://https://github.com/NafenX))
 * nic3245 ([GitHub](https://github.com/nl364))
 * PanicPoint ([Github](https://github.com/Panic-Point))
 * Sanity Dance ([GitHub](https://github.com/sanity-dance))
