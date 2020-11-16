@@ -76,17 +76,19 @@ public class ExtraMonsterPatch {
     {
         @SpirePostfixPatch
         public static void patch() {
-            spawnMonsters(-300, 50);
+            spawnMonsters(-200, 50);
         }
     }
-
     @SpirePatch(clz = Champ.class, method = SpirePatch.CONSTRUCTOR)
     public static class ChampRepositionPatch
     {
         @SpirePostfixPatch
         public static void patch(Champ __instance) {
-            __instance.drawX = Settings.WIDTH * 0.75f + (200) * Settings.scale;
-            __instance.refreshIntentHbLocation();
+            String extraMonsters = ExtraMonsterField.pipedMonsters.get(AbstractDungeon.player);
+            if (extraMonsters != null && !extraMonsters.isEmpty()) {
+                __instance.drawX = Settings.WIDTH * 0.75f + (200) * Settings.scale;
+                __instance.refreshIntentHbLocation();
+            }
         }
     }
 
